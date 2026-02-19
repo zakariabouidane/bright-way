@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bright Way - AI Innovation Company</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .app-wrapper {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    
+    /* Neural network background pattern */
+    .neural-bg {
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(46, 125, 87, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(46, 125, 87, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(46, 125, 87, 0.05) 0%, transparent 70%),
+        linear-gradient(135deg, #f8faf9 0%, #e8f5ec 50%, #f0f7f3 100%);
+    }
+    
+    /* Glassmorphism card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 
+        0 8px 32px rgba(46, 125, 87, 0.1),
+        0 2px 8px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+    
+    .glass-card-dark {
+      background: rgba(46, 125, 87, 0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(46, 125, 87, 0.15);
+    }
+    
+    /* Glowing button */
+    .glow-btn {
+      background: linear-gradient(135deg, #2E7D57 0%, #3d9970 50%, #2E7D57 100%);
+      box-shadow: 
+        0 4px 20px rgba(46, 125, 87, 0.4),
+        0 0 40px rgba(46, 125, 87, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glow-btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 
+        0 8px 30px rgba(46, 125, 87, 0.5),
+        0 0 60px rgba(46, 125, 87, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+    
+    .glow-btn-outline {
+      background: transparent;
+      border: 2px solid #2E7D57;
+      color: #2E7D57;
+      box-shadow: 0 0 20px rgba(46, 125, 87, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .glow-btn-outline:hover {
+      background: rgba(46, 125, 87, 0.1);
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(46, 125, 87, 0.2);
+    }
+    
+    /* Floating animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    
+    @keyframes float-delayed {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(-2deg); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.1); }
+    }
+    
+    @keyframes rotate-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .float-1 { animation: float 6s ease-in-out infinite; }
+    .float-2 { animation: float-delayed 8s ease-in-out infinite 1s; }
+    .float-3 { animation: float 7s ease-in-out infinite 2s; }
+    .pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+    .rotate-slow { animation: rotate-slow 30s linear infinite; }
+    
+    /* Service card hover */
+    .service-card {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px) rotateX(5deg);
+      box-shadow: 
+        0 20px 40px rgba(46, 125, 87, 0.15),
+        0 0 60px rgba(46, 125, 87, 0.1);
+    }
+    
+    .service-card:hover .service-icon {
+      transform: scale(1.1) rotateY(10deg);
+    }
+    
+    .service-icon {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #2E7D57 0%, #4ade80 50%, #2E7D57 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* Section transition */
+    .section-transition {
+      position: relative;
+    }
+    
+    .section-transition::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 0;
+      right: 0;
+      height: 100px;
+      background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5));
+      pointer-events: none;
+    }
+    
+    /* Geometric shapes */
+    .geo-shape {
+      position: absolute;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      background: linear-gradient(135deg, rgba(46, 125, 87, 0.1) 0%, rgba(74, 222, 128, 0.05) 100%);
+      filter: blur(1px);
+    }
+    
+    /* Neural lines */
+    .neural-line {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(46, 125, 87, 0.3), transparent);
+    }
+    
+    /* Input styling */
+    .form-input {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(46, 125, 87, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      border-color: #2E7D57;
+      box-shadow: 0 0 20px rgba(46, 125, 87, 0.15);
+      outline: none;
+    }
+    
+    /* Why choose item */
+    .why-item {
+      transition: all 0.4s ease;
+    }
+    
+    .why-item:hover {
+      transform: translateX(10px);
+    }
+    
+    .why-item:hover .why-icon {
+      transform: scale(1.2) rotate(10deg);
+      box-shadow: 0 0 30px rgba(46, 125, 87, 0.4);
+    }
+    
+    .why-icon {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Logo styling */
+    .logo-link {
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .logo-link:hover {
+      transform: scale(1.08);
+    }
+    
+    .logo-link img {
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: block;
+      height: 48px;
+      width: auto;
+    }
+    
+    /* Scroll indicator */
+    @keyframes bounce-down {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    
+    .scroll-indicator {
+      animation: bounce-down 2s ease-in-out infinite;
+    }
+    
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(150%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .toast.show {
+      transform: translateX(0);
+    }
+    
+    .toast-success {
+      background: linear-gradient(135deg, #2E7D57 0%, #3d9970 100%);
+      color: white;
+      box-shadow: 0 4px 20px rgba(46, 125, 87, 0.4);
+    }
+    
+    .toast-error {
+      background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+      color: white;
+      box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="app-wrapper neural-bg"><!-- Navigation -->
+   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-3">
+     <div class="flex items-center justify-between"><a href="#" class="logo-link"> <img src="https://i.postimg.cc/fTMFJx8J/Bright-way-logo.png" alt="Bright Way Logo" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.display='none';"> </a>
+      <div class="hidden md:flex items-center gap-8"><a href="#about" class="text-gray-600 hover:text-green-700 transition-colors font-medium">About</a> <a href="#services" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Services</a> <a href="#why" class="text-gray-600 hover:text-green-700 transition-colors font-medium">Why Us</a> <a href="#contact" class="glow-btn text-white px-5 py-2 rounded-xl font-semibold">Contact</a>
+      </div>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section class="relative min-h-screen flex items-center justify-center px-6 pt-24 pb-12 overflow-hidden"><!-- Geometric background elements -->
+    <div class="geo-shape w-96 h-96 top-20 -left-48 float-1 pulse-glow"></div>
+    <div class="geo-shape w-64 h-64 top-40 right-10 float-2" style="border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;"></div>
+    <div class="geo-shape w-80 h-80 bottom-20 left-1/4 float-3" style="border-radius: 40% 60% 60% 40% / 70% 30% 70% 30%;"></div><!-- Neural network lines -->
+    <div class="neural-line w-full top-1/4 rotate-slow" style="transform-origin: center;"></div>
+    <div class="neural-line w-3/4 top-2/3 left-1/8" style="animation-delay: 2s;"></div><!-- Floating orbs -->
+    <div class="absolute top-32 right-20 w-4 h-4 rounded-full bg-green-400 opacity-60 float-1"></div>
+    <div class="absolute top-60 left-32 w-3 h-3 rounded-full bg-green-500 opacity-40 float-2"></div>
+    <div class="absolute bottom-40 right-40 w-5 h-5 rounded-full bg-green-300 opacity-50 float-3"></div>
+    <div class="relative z-10 max-w-5xl mx-auto text-center"><!-- Glowing accent behind headline -->
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-green-400 rounded-full opacity-10 blur-3xl pulse-glow"></div>
+     <h1 id="hero-headline" class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 leading-tight mb-6 relative">The <span class="gradient-text">Bright Way</span> to Build<br>
+      the Future with <span class="gradient-text">AI</span></h1>
+     <p id="hero-subheadline" class="text-lg sm:text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-10 font-light leading-relaxed">We build intelligent systems, automate businesses, and teach the world how to use AI the smart way.</p>
+     <div class="flex flex-col sm:flex-row gap-4 justify-center items-center"><button class="glow-btn text-white px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+       </svg> Start With AI </button> <button class="glow-btn-outline px-8 py-4 rounded-2xl font-bold text-lg flex items-center gap-3">
+       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+       </svg> Book Free Consultation </button>
+     </div><!-- Scroll indicator -->
+     <div class="scroll-indicator mt-16 flex flex-col items-center text-gray-400"><span class="text-sm font-medium mb-2">Scroll to explore</span>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+     </div>
+    </div>
+   </section><!-- About Section -->
+   <section id="about" class="py-24 px-6 relative">
+    <div class="max-w-6xl mx-auto">
+     <div class="grid md:grid-cols-2 gap-12 items-center"><!-- Left: Visual element -->
+      <div class="relative">
+       <div class="glass-card rounded-3xl p-8 relative overflow-hidden">
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-green-400 rounded-full opacity-20 blur-2xl"></div>
+        <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-green-500 rounded-full opacity-15 blur-xl"></div><!-- 3D layered logo representation -->
+        <div class="relative h-72 flex items-center justify-center">
+         <div class="absolute w-48 h-48 rounded-full border-2 border-green-200 opacity-30 rotate-slow"></div>
+         <div class="absolute w-36 h-36 rounded-full border-2 border-green-300 opacity-40" style="animation: rotate-slow 20s linear infinite reverse;"></div><img src="https://i.postimg.cc/fTMFJx8J/Bright-way-logo.png" alt="Bright Way Logo" class="h-32 w-auto float-1" loading="lazy" onerror="console.error('Logo failed to load:', this.src);">
+        </div>
+       </div>
+      </div><!-- Right: Content -->
+      <div><span class="text-green-600 font-semibold text-sm uppercase tracking-wider mb-4 block">About Us</span>
+       <h2 id="about-title" class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Who We Are</h2>
+       <div class="space-y-4 text-gray-600 text-lg leading-relaxed">
+        <p><strong class="text-gray-800">Bright Way</strong> is an AI innovation company helping businesses and individuals unlock the power of artificial intelligence.</p>
+        <p>We design smart systems, automate operations, reduce costs, and help entrepreneurs build scalable companies with minimal staff using AI tools.</p>
+        <p class="glass-card-dark rounded-xl p-4 border-l-4 border-green-500"><em>"We believe the future belongs to those who understand AI — and we guide them there."</em></p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Services Section -->
+   <section id="services" class="py-24 px-6 relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16"><span class="text-green-600 font-semibold text-sm uppercase tracking-wider mb-4 block">What We Do</span>
+      <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-4">Our Services</h2>
+      <p class="text-gray-600 text-xl max-w-2xl mx-auto">Comprehensive AI solutions designed to transform your business</p>
+     </div><!-- Creative asymmetric grid -->
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"><!-- Service 1 - Large -->
+      <div class="service-card glass-card rounded-3xl p-8 lg:col-span-2 lg:row-span-1 relative overflow-hidden group">
+       <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-400 to-transparent opacity-20 rounded-bl-full"></div>
+       <div class="service-icon inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-6 shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+       </div>
+       <h3 class="text-2xl font-bold text-gray-900 mb-3">AI Solution Development</h3>
+       <p class="text-gray-600 text-lg">Custom AI systems tailored to your unique business needs. From concept to deployment, we build intelligent solutions that drive results.</p>
+      </div><!-- Service 2 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">AI Automation Systems</h3>
+       <p class="text-gray-600">Replace repetitive human tasks with intelligent workflows.</p>
+      </div><!-- Service 3 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">Zero-Employee Business Models</h3>
+       <p class="text-gray-600">Launch and run businesses using AI tools instead of large teams.</p>
+      </div><!-- Service 4 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">AI Consulting &amp; Strategy</h3>
+       <p class="text-gray-600">We design AI roadmaps for companies ready to transform.</p>
+      </div><!-- Service 5 - Large -->
+      <div class="service-card glass-card rounded-3xl p-8 lg:col-span-2 relative overflow-hidden group">
+       <div class="absolute bottom-0 left-0 w-40 h-40 bg-gradient-to-tr from-green-400 to-transparent opacity-15 rounded-tr-full"></div>
+       <div class="service-icon inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-6 shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+       </div>
+       <h3 class="text-2xl font-bold text-gray-900 mb-3">AI Education &amp; Training</h3>
+       <p class="text-gray-600 text-lg">Comprehensive courses for businesses, adults, and children. Prepare yourself and your team for the AI-driven future.</p>
+      </div><!-- Service 6 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">AI for Startups</h3>
+       <p class="text-gray-600">Build AI-first companies from scratch with our expert guidance.</p>
+      </div><!-- Service 7 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">Prompt Engineering</h3>
+       <p class="text-gray-600">Advanced AI usage optimization for maximum efficiency.</p>
+      </div><!-- Service 8 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">AI Content &amp; Marketing</h3>
+       <p class="text-gray-600">Automated branding and growth using AI systems.</p>
+      </div><!-- Service 9 -->
+      <div class="service-card glass-card rounded-3xl p-6 relative overflow-hidden group">
+       <div class="service-icon inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 mb-5 shadow-lg">
+        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+        </svg>
+       </div>
+       <h3 class="text-xl font-bold text-gray-900 mb-2">Digital Transformation</h3>
+       <p class="text-gray-600">Affordable AI integration for SMEs ready to evolve.</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Why Choose Section -->
+   <section id="why" class="py-24 px-6 relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+    <div class="max-w-6xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-16 items-center"><!-- Left: Content -->
+      <div><span class="text-green-600 font-semibold text-sm uppercase tracking-wider mb-4 block">Why Us</span>
+       <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">Why Choose <span class="gradient-text">Bright Way</span></h2>
+       <div class="space-y-5">
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Reduce costs dramatically</span>
+        </div>
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Work smarter, not harder</span>
+        </div>
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Launch businesses faster</span>
+        </div>
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Compete with big companies using AI</span>
+        </div>
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Learn the future skills today</span>
+        </div>
+        <div class="why-item flex items-center gap-4 p-4 rounded-2xl hover:bg-white/50 cursor-default">
+         <div class="why-icon w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg flex-shrink-0">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+          </svg>
+         </div><span class="text-gray-700 text-lg font-medium">Scalable, automated systems</span>
+        </div>
+       </div>
+      </div><!-- Right: Quote card -->
+      <div class="relative">
+       <div class="absolute -top-10 -right-10 w-64 h-64 bg-green-400 rounded-full opacity-10 blur-3xl"></div>
+       <div class="glass-card rounded-3xl p-10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-green-400 to-green-500"></div>
+        <svg class="w-16 h-16 text-green-200 mb-6" fill="currentColor" viewbox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+        </svg>
+        <h3 class="text-3xl md:text-4xl font-black text-gray-900 mb-4 leading-tight">AI Is Not the Future.<br><span class="gradient-text">It Is Now.</span></h3>
+        <p class="text-gray-600 text-lg">Those who embrace AI today will lead tomorrow. Those who wait will be left behind.</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Vision Section -->
+   <section class="py-24 px-6 relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-green-50/50 to-transparent"></div>
+    <div class="max-w-5xl mx-auto text-center relative z-10">
+     <div class="glass-card rounded-3xl p-12 md:p-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-48 h-48 bg-gradient-to-bl from-green-400 to-transparent opacity-10"></div>
+      <div class="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-green-400 to-transparent opacity-10"></div><span class="text-green-600 font-semibold text-sm uppercase tracking-wider mb-4 block">Our Vision</span>
+      <h2 id="vision-headline" class="text-3xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">Building Intelligent Businesses<br><span class="gradient-text">Without Limits</span></h2>
+      <div class="max-w-3xl mx-auto space-y-6 text-gray-600 text-lg md:text-xl leading-relaxed">
+       <p>Our mission is to empower entrepreneurs, startups, and enterprises to leverage AI tools in ways that were once impossible.</p>
+       <p>We want to create a world where anyone can launch and grow a business efficiently with smart automation.</p>
+      </div>
+      <div class="mt-10 flex justify-center">
+       <div class="flex items-center gap-8 flex-wrap justify-center">
+        <div class="text-center">
+         <div class="text-4xl font-black gradient-text">
+          500+
+         </div>
+         <div class="text-gray-500 font-medium">
+          Projects
+         </div>
+        </div>
+        <div class="w-px h-12 bg-gray-200"></div>
+        <div class="text-center">
+         <div class="text-4xl font-black gradient-text">
+          98%
+         </div>
+         <div class="text-gray-500 font-medium">
+          Success Rate
+         </div>
+        </div>
+        <div class="w-px h-12 bg-gray-200"></div>
+        <div class="text-center">
+         <div class="text-4xl font-black gradient-text">
+          50+
+         </div>
+         <div class="text-gray-500 font-medium">
+          Countries
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Contact Section -->
+   <section id="contact" class="py-24 px-6 relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+    <div class="max-w-6xl mx-auto">
+     <div class="grid lg:grid-cols-2 gap-12 items-start"><!-- Left: Info -->
+      <div><span class="text-green-600 font-semibold text-sm uppercase tracking-wider mb-4 block">Get In Touch</span>
+       <h2 id="contact-title" class="text-4xl md:text-5xl font-black text-gray-900 mb-6">Let's Build Your<br><span class="gradient-text">AI Future</span></h2>
+       <p class="text-gray-600 text-lg mb-8">Ready to transform your business with AI? Get in touch with our team and let's discuss how we can help you achieve your goals.</p>
+       <div class="space-y-4">
+        <div class="flex items-center gap-4">
+         <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shadow-lg">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+         </div><span class="text-gray-700 font-medium">brightway-ai@outlook.com</span>
+        </div>
+       </div>
+      </div><!-- Right: Form -->
+      <div class="glass-card rounded-3xl p-8 relative overflow-hidden">
+       <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-400 to-transparent opacity-10"></div>
+       <form id="contact-form" class="space-y-6">
+        <div><label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label> <input type="text" id="name" name="name" required class="form-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-400" placeholder="John Doe">
+        </div>
+        <div><label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label> <input type="email" id="email" name="email" required class="form-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-400" placeholder="john@example.com">
+        </div>
+        <div><label for="message" class="block text-gray-700 font-medium mb-2">Your Message</label> <textarea id="message" name="message" required rows="5" class="form-input w-full px-5 py-4 rounded-xl text-gray-800 placeholder-gray-400 resize-none" placeholder="Tell us about your project..."></textarea>
+        </div><button type="submit" id="submit-btn" class="glow-btn w-full text-white px-8 py-4 rounded-xl font-bold text-lg flex items-center justify-center gap-3"> <span id="btn-text">Send Message</span>
+         <svg id="btn-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+         </svg>
+         <svg id="btn-spinner" class="w-5 h-5 animate-spin hidden" fill="none" viewbox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle> <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+         </svg></button>
+       </form>
+      </div>
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="py-12 px-6 relative">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-green-300 to-transparent"></div>
+    <div class="max-w-6xl mx-auto">
+     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3"><img src="https://i.postimg.cc/fTMFJx8J/Bright-way-logo.png" alt="Bright Way Logo" class="h-10 w-auto" loading="lazy" onerror="console.error('Logo failed to load:', this.src);">
+      </div>
+      <div class="text-gray-500 text-center md:text-right">
+       <p class="font-medium">Bright Way © 2026</p>
+       <p class="text-sm">AI Innovation &amp; Automation Company</p>
+      </div>
+     </div>
+    </div>
+   </footer><!-- Toast notification -->
+   <div id="toast" class="toast toast-success">
+    <div class="flex items-center gap-3">
+     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+     </svg><span id="toast-message">Message sent successfully!</span>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      hero_headline: "The Bright Way to Build the Future with AI",
+      hero_subheadline: "We build intelligent systems, automate businesses, and teach the world how to use AI the smart way.",
+      about_title: "Who We Are",
+      vision_headline: "Building Intelligent Businesses Without Limits",
+      contact_title: "Let's Build Your AI Future",
+      primary_color: "#2E7D57",
+      secondary_color: "#3d9970",
+      text_color: "#1f2937",
+      background_color: "#f8faf9",
+      accent_color: "#ffffff"
+    };
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          // Update hero section
+          const heroHeadline = document.getElementById('hero-headline');
+          if (heroHeadline) {
+            const headlineText = config.hero_headline || defaultConfig.hero_headline;
+            heroHeadline.innerHTML = headlineText.replace('Bright Way', '<span class="gradient-text">Bright Way</span>').replace('AI', '<span class="gradient-text">AI</span>');
+          }
+          
+          const heroSubheadline = document.getElementById('hero-subheadline');
+          if (heroSubheadline) {
+            heroSubheadline.textContent = config.hero_subheadline || defaultConfig.hero_subheadline;
+          }
+          
+          // Update about section
+          const aboutTitle = document.getElementById('about-title');
+          if (aboutTitle) {
+            aboutTitle.textContent = config.about_title || defaultConfig.about_title;
+          }
+          
+          // Update vision section
+          const visionHeadline = document.getElementById('vision-headline');
+          if (visionHeadline) {
+            const visionText = config.vision_headline || defaultConfig.vision_headline;
+            visionHeadline.innerHTML = visionText.replace('Without Limits', '<span class="gradient-text">Without Limits</span>');
+          }
+          
+          // Update contact section
+          const contactTitle = document.getElementById('contact-title');
+          if (contactTitle) {
+            const contactText = config.contact_title || defaultConfig.contact_title;
+            contactTitle.innerHTML = contactText.replace('AI Future', '<span class="gradient-text">AI Future</span>');
+          }
+          
+          // Update colors
+          const primaryColor = config.primary_color || defaultConfig.primary_color;
+          const secondaryColor = config.secondary_color || defaultConfig.secondary_color;
+          const textColor = config.text_color || defaultConfig.text_color;
+          const bgColor = config.background_color || defaultConfig.background_color;
+          const accentColor = config.accent_color || defaultConfig.accent_color;
+          
+          document.documentElement.style.setProperty('--primary-color', primaryColor);
+          document.documentElement.style.setProperty('--secondary-color', secondaryColor);
+          document.documentElement.style.setProperty('--text-color', textColor);
+          document.documentElement.style.setProperty('--bg-color', bgColor);
+          document.documentElement.style.setProperty('--accent-color', accentColor);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => window.elementSdk.setConfig({ background_color: value })
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => window.elementSdk.setConfig({ accent_color: value })
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => window.elementSdk.setConfig({ text_color: value })
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => window.elementSdk.setConfig({ primary_color: value })
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => window.elementSdk.setConfig({ secondary_color: value })
+            }
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || 'Montserrat',
+            set: (value) => window.elementSdk.setConfig({ font_family: value })
+          },
+          fontSizeable: {
+            get: () => config.font_size || 16,
+            set: (value) => window.elementSdk.setConfig({ font_size: value })
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["hero_headline", config.hero_headline || defaultConfig.hero_headline],
+          ["hero_subheadline", config.hero_subheadline || defaultConfig.hero_subheadline],
+          ["about_title", config.about_title || defaultConfig.about_title],
+          ["vision_headline", config.vision_headline || defaultConfig.vision_headline],
+          ["contact_title", config.contact_title || defaultConfig.contact_title]
+        ])
+      });
+    }
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      
+      toast.className = `toast toast-${type}`;
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    // Contact form handling
+    const contactForm = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnIcon = document.getElementById('btn-icon');
+    const btnSpinner = document.getElementById('btn-spinner');
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending...';
+      btnIcon.classList.add('hidden');
+      btnSpinner.classList.remove('hidden');
+      
+      // Simulate form submission delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Create mailto link for actual submission
+      const mailtoLink = `mailto:brightway-ai@outlook.com?subject=Contact from ${encodeURIComponent(name)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`)}`;
+      
+      // Open email client
+      window.open(mailtoLink, '_blank');
+      
+      // Reset form and button
+      contactForm.reset();
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Message';
+      btnIcon.classList.remove('hidden');
+      btnSpinner.classList.add('hidden');
+      
+      // Show success message
+      showToast('Opening your email client to send the message!', 'success');
+    });
+
+    // Smooth scroll for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add scroll-based animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe service cards for animation
+    document.querySelectorAll('.service-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+      observer.observe(card);
+    });
+
+    // Observe why items for animation
+    document.querySelectorAll('.why-item').forEach((item, index) => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateX(-30px)';
+      item.style.transition = `all 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+      observer.observe(item);
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d0582087731f975',t:'MTc3MTUwMTQyMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
